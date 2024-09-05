@@ -1,6 +1,3 @@
-Here's a description you can use for the `README.md` file in your GitHub repository:
-
----
 
 # Simple Voting System
 
@@ -39,9 +36,5 @@ This Java program simulates a basic voting system where a predefined list of vot
 ## Requirements
 
 - Java Development Kit (JDK) 8 or higher.
-
-## Contributing
-
-Feel free to fork this repository and submit pull requests. Suggestions for new features or improvements are welcome!
 
 
