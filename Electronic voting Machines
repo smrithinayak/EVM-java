@@ -1,0 +1,97 @@
+import java.util.Scanner;
+
+class Candidate {
+    String name;
+    int votes;
+
+    Candidate(String name) {
+        this.name = name;
+        this.votes = 0;
+    }
+}
+
+public class Election {
+    static final int MAX_CANDIDATES = 10;
+    static final int MAX_VOTERS = 100;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] voters = {"AAA", "BBB", "CCC", "DDD", "EEE", "FFF", "GGG"};
+        int numVoters = voters.length;
+
+        System.out.print("Enter the number of candidates: ");
+        int numCandidates = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Candidate[] candidates = new Candidate[numCandidates];
+
+        for (int i = 0; i < numCandidates; i++) {
+            System.out.print("Enter candidate " + (i + 1) + " name: ");
+            String name = scanner.nextLine();
+            candidates[i] = new Candidate(name);
+        }
+
+        System.out.println("\nList of voters:");
+        for (String voter : voters) {
+            System.out.println(voter);
+        }
+        System.out.println();
+
+        int numVotesCast = 0;
+        String[] votedVoters = new String[MAX_VOTERS];
+
+        while (numVotesCast < numVoters) {
+            System.out.print("Enter voter name: ");
+            String voter = scanner.nextLine();
+
+            boolean validVoter = false;
+            boolean hasVoted = false;
+
+            for (String v : voters) {
+                if (v.equals(voter)) {
+                    validVoter = true;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < numVotesCast; i++) {
+                if (votedVoters[i].equals(voter)) {
+                    hasVoted = true;
+                    break;
+                }
+            }
+
+            if (validVoter && !hasVoted) {
+                // Display list of candidates
+                System.out.println("List of candidates:");
+                for (int j = 0; j < numCandidates; j++) {
+                    System.out.println((j + 1) + ". " + candidates[j].name);
+                }
+
+                System.out.print("Enter your vote: ");
+                int vote = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+
+                if (vote >= 1 && vote <= numCandidates) {
+                    candidates[vote - 1].votes++;
+                    System.out.println("Thank you for casting your vote.");
+                    votedVoters[numVotesCast] = voter;
+                    numVotesCast++;
+                } else {
+                    System.out.println("Invalid vote.");
+                }
+            } else if (!validVoter) {
+                System.out.println("Invalid voter.");
+            } else if (hasVoted) {
+                System.out.println("You have already voted.");
+            }
+        }
+
+        System.out.println("\nElection results:");
+        for (int i = 0; i < numCandidates; i++) {
+            System.out.println(candidates[i].name + " received " + candidates[i].votes + " votes.");
+        }
+
+        scanner.close();
+    }
+}
